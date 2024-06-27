@@ -50,10 +50,10 @@ function Compile()
      arg="$arg ${line:1}"
   done < "$1"
 
-  cd target
-  compile=$(echo "jar cfm "$name".jar "manifest.txt" "$arg"")
+  cd $compile
+  compilejar=$(echo "jar cfm "$name".jar "manifest.txt" "$arg"")
 
-  eval "$compile"
+  eval "$compilejar"
 }
 
 function GenerateManifest()
@@ -84,15 +84,15 @@ function DownloadDependencies()
 }
 
 # some config
-name="Main"
+name="MyApp"
 manifest="manifest.txt"
-compile="target"
+compile="MyJavaApp"
 
 # project settings
 main="io.jzk.Main"
 
 # dependencies path for external files READ
-dependencies="bash/dep2"
+dependencies="bash/dep"
 resources="target/resource/"
 
 # relative path to project
