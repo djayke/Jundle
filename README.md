@@ -1,6 +1,7 @@
 # Jundle
 A bash script that use javac CLI and build a JAR from source file, the project is not as powerful as maven or gradle
-but it show the complexity of building a jar file from scratch with the language build system `javac` `jar` to make a jar
+but it show the complexity of building a jar file from scratch with the language build system `javac` `jar` to make a jar.
+So this is a limited and very minimalist build system for java!
 
 ### Prequired
 You need to have `curl` installed and indeed `javac` `jar` `java` command on your system the 3 last are basic command CLI for java SDK so if you have java installed you should be good...
