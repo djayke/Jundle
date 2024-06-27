@@ -32,7 +32,12 @@ function GenerateClass()
 
   echo "javac -d "$output" -cp ".:$compile$lib/gson.jar" $ret"
 
-  javac -d "$output" -cp $compile/$lib"gson.jar" $ret
+    classpath=""
+    while IFS= read -r line; do
+      classpath="$classpath$lib$line "
+    done < "$compile/classpath"
+
+    javac -d "$output" -cp $compile/$classpath $ret
 }
 
 function Compile()
@@ -71,6 +76,7 @@ function DownloadDependencies()
          version=$(echo ${line} | cut -d ' ' -f 3)
          url="https://repo1.maven.org/maven2/$group/$artifact/$version/$artifact-$version.jar"
          curl "$url" --output $compile/$lib"$artifact.jar"
+          echo "$artifact.jar" >> $compile/classpath
      done < "$dependencies"
 }
 
