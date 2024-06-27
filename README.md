@@ -44,3 +44,7 @@ Here is the output in folder target
 
 Just Run the command
 `java -jar path/to/myjar.jar` -> `java -jar target/Main.jar`
+
+### Idea for further developpement
+I really should have use a more high level language for the whole processing it would make the test jar file easily generated as well
+also adding git branch would make the project really interesting as you would be able to fetch the generated jar from a branch dev and run test throughly before switching to main branch and do some task like building prod jar for a automation test environement and also completely make the script capable of pushing to remote project for the CI/CD with builded file that would make the whole build fail and haing them to locally do some testing as QA... Maybe on another coding sprint! 
