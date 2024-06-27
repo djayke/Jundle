@@ -105,23 +105,49 @@ lib="libs/"
 cd "$working"
 
 # Clean previous build dir and create a fresh one
+echo "$(tput setaf 5)$(tput bold)"
+echo "===================================================="
+echo "=                    JUNDLE                        ="
+echo "===================================================="
+echo "$(tput sgr 0)"
+
+echo "$(tput setaf 5)[Jundle]$(tput sgr 0) Cleaning older files and directories if any found..."
 Clean "$output"
+echo "$(tput setaf 2)Done!"
+
+echo "$(tput setaf 5)[Jundle]$(tput sgr 0) Initialize environement for Jundle..."
 mkdir -p "$output/libs/"
+echo "$(tput setaf 2)Done!"
 
 # Download Dependencies
+echo "$(tput setaf 5)[Jundle]$(tput sgr 0) Fetch external librairies used in the project setted in dependencies file..."
 DownloadDependencies
+echo "$(tput setaf 2)Done!"
 
 # .bundle the project java file in a single file with their path
+echo "$(tput setaf 5)[Jundle]$(tput sgr 0) Bundle the sources directories and create needed files for Jundle..."
 RecursiveFolder "$dir" "$compile/.bundle"
+echo "$(tput setaf 2)Done!"
 
 # create class with javac
+echo "$(tput setaf 5)[Jundle]$(tput sgr 0) Create the class files from .java found in sub-tree..."
 GenerateClass "$compile/.bundle"
+echo "$(tput setaf 2)Done!"
 
 # create manifest
+echo "$(tput setaf 5)[Jundle]$(tput sgr 0) Generate manifest do not forget to change the main settings variable in the script..."
 GenerateManifest "$compile/manifest.txt"
+echo "$(tput setaf 2)Done!"
 
 # Adjust bundler with new file path
+echo "$(tput setaf 5)[Jundle]$(tput sgr 0) Create temporary resources from bundle to generate jar file..."
 ModifyBundlerForTargetPath "$compile/.bundle" "$dir" "$compile"
+echo "$(tput setaf 2)Done!"
 
 # compile
+echo "$(tput setaf 5)[Jundle]$(tput sgr 0) Attempt to create jar file using tmp resource with given config..."
 Compile "$compile/.jundle" "$output" "$name"
+echo "$(tput setaf 2)Done!"
+
+echo "$(tput setaf 5)[Jundle]$(tput sgr 0) $(tput setaf 2)Jar succesfuly generated on : $(tput setaf 4)$(tput bold)$compile$(tput sgr 0) as $(tput setaf 4)$(tput bold)$name$(tput sgr 0). $(tput setaf 5)Enjoy!"
+
