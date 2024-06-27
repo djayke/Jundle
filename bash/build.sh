@@ -23,6 +23,14 @@ function RecursiveFolder
   done
 }
 
+function ClassPath()
+{
+    classpath=""
+    while IFS= read -r line; do
+      classpath="$classpath$lib$line "
+    done < "$compile/classpath"
+}
+
 function GenerateClass()
 {
   local ret=""
@@ -30,14 +38,9 @@ function GenerateClass()
     ret="$ret $line"
   done < "$1"
 
-  echo "javac -d "$output" -cp ".:$compile$lib/gson.jar" $ret"
+  ClassPath
 
-    classpath=""
-    while IFS= read -r line; do
-      classpath="$classpath$lib$line "
-    done < "$compile/classpath"
-
-    javac -d "$output" -cp $compile/$classpath $ret
+  javac -d "$output" -cp $compile/$classpath $ret
 }
 
 function Compile()
@@ -56,7 +59,10 @@ function Compile()
 function GenerateManifest()
 {
     echo "Main-Class: $main" > "$1"
-    echo "Class-Path: $lib/gson.jar" >> "$1"
+
+    ClassPath
+
+    echo "Class-Path: $classpath" >> "$1"
 }
 
 function ModifyBundlerForTargetPath()
