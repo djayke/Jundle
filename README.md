@@ -34,10 +34,12 @@ for the jar resulting
    They are separted with a space the script extract it to a URL and curl the content from maven central where jar are hosted for the build system it does download it locally and bind them to your jar file output folder
 
 ### Usage
-Example of working tree with the script to generate the jar file 
+Example of working tree with the script to generate the jar file
+
 ![Capture d’écran du 2024-06-27 23-32-12](https://github.com/djayke/Jundle/assets/146222213/7f83747f-e059-4ff0-abe8-e039c40774d9)
 
 Here is the output in folder target
+
 ![Capture d’écran du 2024-06-27 23-34-20](https://github.com/djayke/Jundle/assets/146222213/b095b65d-542c-4852-bee8-beac7b9fefe8)
 
 Just Run the command
