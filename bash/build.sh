@@ -28,7 +28,7 @@ function ClassPath()
     classpath=""
     while IFS= read -r line; do
       classpath="$classpath$lib$line "
-    done < "$compile/classpath"
+    done < "$compile/.classpathjar"
 }
 
 function GenerateClass()
@@ -59,9 +59,6 @@ function Compile()
 function GenerateManifest()
 {
     echo "Main-Class: $main" > "$1"
-
-    ClassPath
-
     echo "Class-Path: $classpath" >> "$1"
 }
 
@@ -70,7 +67,7 @@ function ModifyBundlerForTargetPath()
       readarray -t lines < "$1"
       for line in "${lines[@]}"; do
           local f=$(echo "${line##*$2}")
-          echo "${f%.java}.class" >> "$compile/jundle"
+          echo "${f%.java}.class" >> "$compile/.jundle"
       done
 }
 
@@ -82,7 +79,7 @@ function DownloadDependencies()
          version=$(echo ${line} | cut -d ' ' -f 3)
          url="https://repo1.maven.org/maven2/$group/$artifact/$version/$artifact-$version.jar"
          curl "$url" --output $compile/$lib"$artifact.jar"
-          echo "$artifact.jar" >> $compile/classpath
+          echo "$artifact.jar" >> $compile/.classpathjar
      done < "$dependencies"
 }
 
@@ -114,17 +111,17 @@ mkdir -p "$output/libs/"
 # Download Dependencies
 DownloadDependencies
 
-# Bundle the project java file in a single file with their path
-RecursiveFolder "$dir" "$compile/bundle"
+# .bundle the project java file in a single file with their path
+RecursiveFolder "$dir" "$compile/.bundle"
 
 # create class with javac
-GenerateClass "$compile/bundle"
+GenerateClass "$compile/.bundle"
 
 # create manifest
 GenerateManifest "$compile/manifest.txt"
 
 # Adjust bundler with new file path
-ModifyBundlerForTargetPath "$compile/bundle" "$dir" "$compile"
+ModifyBundlerForTargetPath "$compile/.bundle" "$dir" "$compile"
 
 # compile
-Compile "$compile/jundle" "$output" "$name"
+Compile "$compile/.jundle" "$output" "$name"
