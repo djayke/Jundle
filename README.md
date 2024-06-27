@@ -2,6 +2,26 @@
 A bash script that use javac CLI and build a JAR from source file, the project is not as powerful as maven or gradle
 but it show the complexity of building a jar file from scratch with the language build system `javac` `jar` to make a jar
 
+### Prequired
+You need to have `curl` installed and indeed `javac` `jar` `java` command on your system the 3 last are basic command CLI for java SDK so if you have java installed you should be good...
+To install `curl` use your packet manager 
+
+1.Ubuntu
+```
+sudo apt-get install curl
+```
+2.Fedora
+```
+sudo dnf install curl
+```
+3.Arch
+```
+sudo pacman -Syu curl
+#or
+yay install curl
+```
+
+
 ### Information
 It use 2 files one call `build.sh` which is the script to process the whole source tree and files and generate class files add dependencies
 for the jar resulting
