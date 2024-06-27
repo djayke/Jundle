@@ -65,8 +65,20 @@ function ModifyBundlerForTargetPath()
 
 function DownloadDependencies()
 {
+#        group=$(echo ${line} | cut -d ' ' -f 1)
+#          artifact=$(echo ${line} | cut -d ' ' -f 1)
+#          version=$(echo ${line} | cut -d ' ' -f 1)
+#          group="$( echo $group | sed 's/\//./g' )"
+#          url="https://repo1.maven.org/maven2/$group/$artifact/$version/$artifact-$version.jar"
+#          echo "$url"
      while IFS= read -r line; do
-       curl "$line" --output $compile/$lib"gson.jar"
+             group=$(echo ${line} | cut -d ' ' -f 1)
+             artifact=$(echo ${line} | cut -d ' ' -f 1)
+             version=$(echo ${line} | cut -d ' ' -f 1)
+             group="$( echo $group | sed 's/\//./g' )"
+             url="https://repo1.maven.org/maven2/$group/$artifact/$version/$artifact-$version.jar"
+#       curl "$line" --output $compile/$lib"gson.jar"
+       curl "$url" --output $compile/$lib"gson.jar"
      done < "$dependencies"
 }
 
@@ -79,7 +91,7 @@ compile="target"
 main="io.jzk.Main"
 
 # dependencies path for external files READ
-dependencies="bash/dep"
+dependencies="bash/dep2"
 resources="target/resource/"
 
 # relative path to project
