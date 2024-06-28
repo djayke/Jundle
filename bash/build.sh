@@ -74,11 +74,30 @@ function ModifyBundlerForTargetPath()
 function DownloadDependencies()
 {
      while IFS= read -r line; do
+         # Extract group artifact version from dep file too create URL
          group=$(echo ${line} | cut -d ' ' -f 1)
          artifact=$(echo ${line} | cut -d ' ' -f 2)
          version=$(echo ${line} | cut -d ' ' -f 3)
          url="https://repo1.maven.org/maven2/$group/$artifact/$version/$artifact-$version.jar"
-         curl "$url" --output $compile/$lib"$artifact.jar"
+
+         # Log
+         echo -e "\t-Starting to download $(tput setaf 4)$(tput bold){$artifact}$(tput sgr 0) from"
+         echo -e "\t-[$url]\n"
+
+         # Curling Jar file
+         curl "$url" --output $compile/$lib"$artifact.jar" -silent
+
+         # Dealing with curl return if code 0 then everhting is fine otherwise abort
+          retCurl=$(echo "$?" )
+          if [ "$retCurl" != 0 ];then
+              echo "$(tput setaf 5)[Jundle] $(tput setaf 1) Error while getting artifact!"
+              echo "Aborting...$(tput sgr 0)"
+              exit 3;
+          else
+              echo -e "\t-$(tput setaf 2)Success!$(tput sgr 0)"
+          fi
+
+          # Keeping jar file name to bind them in classpath
           echo "$artifact.jar" >> $compile/.classpathjar
      done < "$dependencies"
 }
