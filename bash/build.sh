@@ -11,7 +11,7 @@ name="MyApp"                          # Jar name
 manifest="manifest.mn"                # Manifest name (*created automaticly tho)
 compile="MyJavaApp"                   # Output directory name
 
-# project settings (thus this is the manifest Main-Class:)
+# package path.to.main class          (thus this is the manifest Main-Class:)
 main="io.jzk.Main"
 
 # dependencies path for external files
