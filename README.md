@@ -1,6 +1,27 @@
 # Jundle
 A bash script that use javac CLI and build a JAR from source file, the project is not as powerful as maven or gradle
-but it show the complexity of building a jar file from scratch with the language build system `javac` `jar` to make a jar
+but it show the complexity of building a jar file from scratch with the language build system `javac` `jar` to make a jar.
+So this is a limited and very minimalist build system for java!
+
+### Prequired
+You need to have `curl` installed and indeed `javac` `jar` `java` command on your system the 3 last are basic command CLI for java SDK so if you have java installed you should be good...
+To install `curl` use your packet manager 
+
+1.Ubuntu
+```
+sudo apt-get install curl
+```
+2.Fedora
+```
+sudo dnf install curl
+```
+3.Arch
+```
+sudo pacman -Syu curl
+#or
+yay install curl
+```
+
 
 ### Information
 It use 2 files one call `build.sh` which is the script to process the whole source tree and files and generate class files add dependencies
@@ -44,6 +65,9 @@ Here is the output in folder target
 
 Just Run the command
 `java -jar path/to/myjar.jar` -> `java -jar target/Main.jar`
+
+![Capture d’écran du 2024-06-28 00-07-39](https://github.com/djayke/Jundle/assets/146222213/b351bc8e-d22d-4424-bb8a-737b2dbc7430)
+
 
 ### Idea for further developpement
 I really should have use a more high level language for the whole processing it would make the test jar file easily generated as well
