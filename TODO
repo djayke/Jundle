@@ -1,0 +1,8 @@
+make better use of .bundle and $options_arg in javac jar command
+use of module
+extract jar to get class from archive one and build a standalone
+paramterize script for a small config file or options like custom manifest etc
+make display cleaner
+split in multi-scripts... as command
+stuff like that
+using ant build.xml maybe

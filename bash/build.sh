@@ -7,9 +7,9 @@
 # ====================================================================================
 
 # config
-name="MyApp"                          # Jar name
+name="App"                          # Jar name
 manifest="manifest.mn"                # Manifest name (*created automaticly tho)
-compile="MyJavaApp"                   # Output directory name
+compile="JarApp"                   # Output directory name
 
 # package path.to.main class          (thus this is the manifest Main-Class:)
 main="io.jzk.Main"
@@ -21,7 +21,7 @@ resources="target/resource/"          # resources file not working yet
 # relative path to project
 working="/home/jxk/IdeaProjects/jzk/" # Absolute path to project
 output="$working$compile/"            #
-dir="src/main/java/"                  # project source holding .java file to package
+dir="src/main/java"                  # project source holding .java file to package
 lib="libs/"                           # name of the folder to include downloaded jar files
 
 # ====================================================================================
@@ -77,10 +77,14 @@ function Compile()
 {
   local arg=""
   while IFS= read -r line; do
-     arg="$arg $compile/${line:1}"
+     arg="$arg ${line:1}"
   done < "$1"
 
-  jar cfm $compile/$name.jar $compile/$manifest $arg
+  cd $compile
+
+  ## jar xf $lib/gson.jar
+  ## todo : make the extracted class binded to the project before packaging it again so the jar standalone on a single file
+  jar cfm $name.jar $manifest $arg
 }
 
 function GenerateManifest()
@@ -117,7 +121,7 @@ function DownloadDependencies()
          # Dealing with curl return if code 0 then everhting is fine otherwise abort
           retCurl=$(echo "$?" )
           if [ "$retCurl" != 0 ];then
-              echo "$(tput setaf 5)[Jundle] $(tput setaf 1) Error while getting artifact!"
+              echo "$(tput setaf 5)[Jundle] $(tput setaf 4) Error while getting artifact!"
               echo "Aborting...$(tput sgr 0)"
               exit 3;
           else
@@ -187,11 +191,10 @@ echo "$(tput setaf 5)[Jundle]$(tput sgr 0) Attempt to create jar file using tmp 
 Compile "$compile/.jundle" "$output" "$name"
 echo "$(tput setaf 2)Done!"
 
-echo "$(tput setaf 5)[Jundle]$(tput sgr 0) $(tput setaf 2)Jar succesfuly generated on : $(tput setaf 4)$(tput bold)$compile$(tput sgr 0) as $(tput setaf 4)$(tput bold)$name$(tput sgr 0). $(tput setaf 5)Enjoy!"
+echo "$(tput setaf 5)[Jundle]$(tput sgr 0) $(tput setaf 2)Jar succesfuly generated on : $(tput setaf 4)$(tput bold)$compile$(tput sgr 0) as $(tput setaf 4)$(tput bold)$name$(tput sgr 0). $(tput setaf 5)Enjoy!$(tput sgr 0)"
 
-#function display()
-#{
-#     echo "$(tput setaf 5)[Jundle]$(tput sgr 0) $0"
-#     eval "$1"
-#     echo "$(tput setaf 2)Done!"
-#}
+
+echo "here testing it with java -jar so many redundance"
+cd $output
+pwd
+java -jar "$name.jar"

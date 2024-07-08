@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Main-Class: io.jzk.Main
+Class-Path: error_prone_annotations-2.27.0.jar jackson-core-2.16.2.jar g
+ son-2.11.0.jar
+

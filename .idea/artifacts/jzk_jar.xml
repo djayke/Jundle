@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact build-on-make="true" name="jzk:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/jzk_jar</output-path>
+    <root id="root">
+      <element id="archive" name="jzk.jar">
+        <element id="module-output" name="jzk" />
+        <element id="module-test-output" name="jzk" />
+      </element>
+      <element id="library" level="project" name="Maven: com.google.errorprone:error_prone_annotations:2.27.0" />
+      <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.16.2" />
+      <element id="library" level="project" name="Maven: com.google.code.gson:gson:2.11.0" />
+    </root>
+  </artifact>
+</component>
